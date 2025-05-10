@@ -7,3 +7,4 @@ RewriteRule ^([^/]+)/?$ $1.html [L]
 # Optional: Redirect index.html to /
 RewriteCond %{THE_REQUEST} /index\.html [NC]
 RewriteRule ^index\.html$ / [R=301,L]
+DirectoryIndex index.html
