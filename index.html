@@ -6,25 +6,79 @@
   <title>Host Anvil Tools</title>
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <!-- Header will be injected here -->
   <div id="header"></div>
 
-  <main class="container">
-    <h1>Host Anvil Game Tools</h1>
-    <p>Select a tool below for Arma 3:</p>
+  <!-- Hero -->
+  <section class="section-white">
+    <div class="container" style="text-align: center;">
+      <h1>Host Anvil Game Tools</h1>
+      <p>Fast, browser-based utilities for Arma 3 and more. No ads. No bloat.</p>
+      <a class="btn" href="/games">Browse Supported Games</a>
+    </div>
+  </section>
 
-    <ul class="tool-list">
-      <li><a href="/games/arma/parser">Modlist Parser</a> – Turn workshop links into server-ready mod strings.</li>
-      <li><a href="/games/arma/config">Config Generator</a> – Build server.cfg, arma.cfg, and basic.cfg files easily.</li>
-      <li><a href="/games/arma/difficulty">Difficulty Profile Generator</a> – Customize difficulty settings quickly.</li>
-    </ul>
-  </main>
+  <!-- About -->
+  <section class="section-gray">
+    <div class="container">
+      <h2>Why Use These Tools?</h2>
+      <p>Whether you're running an Arma 3 server or managing modpacks, these tools help you simplify your workflow without needing to install anything.</p>
+      <ul>
+        <li><i class="fas fa-check-circle"></i> Export-friendly configs</li>
+        <li><i class="fas fa-check-circle"></i> Fast modlist parsing</li>
+        <li><i class="fas fa-check-circle"></i> Lightweight and privacy-respecting</li>
+      </ul>
+    </div>
+  </section>
 
-  <!-- Footer will be injected here -->
+  <!-- Supported Games -->
+  <section class="section-white">
+    <div class="container">
+      <h2>Supported Games</h2>
+      <div class="game-grid">
+        <a class="game-card" href="/games/arma">
+          <h3>Arma 3</h3>
+          <p>Mod parser, config generators, difficulty builder</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Tools -->
+  <section class="section-gray">
+    <div class="container">
+      <h2>Popular Tools</h2>
+      <ul class="tool-list">
+        <li><a href="/games/arma/parser.html">Modlist Parser</a></li>
+        <li><a href="/games/arma/config.html">Config Generator</a></li>
+        <li><a href="/games/arma/difficulty.html">Difficulty Profile Generator</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Updates -->
+  <section class="section-white">
+    <div class="container">
+      <h2>Latest Updates</h2>
+      <ul>
+        <li><strong>May 2025:</strong> Modlist parser now supports drag-and-drop and copy-to-clipboard!</li>
+        <li><strong>Coming Soon:</strong> Server startup string generator with auto mod dependency mapping.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Discord CTA -->
+  <section class="discord-cta">
+    <div class="container" style="text-align: center;">
+      <h2>Join Our Discord</h2>
+      <p>Get help, suggest tools, or follow updates directly from the devs.</p>
+      <a class="btn" href="https://hostanvil.com/discord" target="_blank">Join the Community</a>
+    </div>
+  </section>
+
   <div id="footer"></div>
-
   <script src="/assets/js/include.js"></script>
 </body>
 </html>
