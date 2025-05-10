@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modlist Parser – Host Anvil Tools</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body, input, button, textarea {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn {
+      background: #007acc;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: background 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      background: #005fa3;
+    }
+
+    input[type="file"] {
+      font-family: 'Poppins', sans-serif;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .output-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    #output {
+      background: #f0f0f0;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+
+  <main class="container">
+    <h1>Modlist Parser</h1>
+    <p>Upload an exported <code>modlist.html</code> from the Arma 3 launcher to generate a Linux-style mod string.</p>
+
+    <input type="file" id="modlistFile" accept=".html" />
+    <br />
+    <button class="btn" onclick="parseModlist()">Parse Modlist</button>
+
+    <h3>Output:</h3>
+    <div id="message" class="notification" style="display:none;"></div>
+
+    <div class="output-controls">
+      <span><strong>Parsed Mod String:</strong></span>
+      <button class="btn" onclick="copyOutput()">Copy to Clipboard</button>
+    </div>
+
+    <textarea id="output" readonly rows="4" style="width: 100%;"></textarea>
+  </main>
+
+  <div id="footer"></div>
+  <script src="/assets/js/include.js"></script>
+  <script>
+    function parseModlist() {
+      const fileInput = document.getElementById('modlistFile');
+      const output = document.getElementById('output');
+      const message = document.getElementById('message');
+
+      message.style.display = 'none';
+      output.value = '';
+
+      if (!fileInput.files.length) {
+        showMessage('Please select a modlist.html file.', 'error');
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const html = e.target.result;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        const links = Array.from(doc.querySelectorAll('a[href*="id="]'));
+        const ids = new Set();
+
+        links.forEach(link => {
+          const match = link.href.match(/id=(\d+)/);
+          if (match) ids.add(`@${match[1]}`);
+        });
+
+        if (ids.size === 0) {
+          showMessage('No mod IDs found in the file.', 'error');
+        } else {
+          output.value = Array.from(ids).join(';');
+          showMessage(`Parsed ${ids.size} mod(s) successfully.`, 'success');
+        }
+      };
+
+      reader.onerror = () => {
+        showMessage('Failed to read file.', 'error');
+      };
+
+      reader.readAsText(file);
+    }
+
+    function showMessage(text, type) {
+      const message = document.getElementById('message');
+      message.className = `notification ${type}`;
+      message.textContent = text;
+      message.style.display = 'block';
+    }
+
+    function copyOutput() {
+      const output = document.getElementById('output');
+      output.select();
+      output.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      showMessage('Copied to clipboard.', 'success');
+    }
+  </script>
+</body>
+</html>
