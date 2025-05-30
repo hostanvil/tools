@@ -104,7 +104,7 @@
         if (ids.size === 0) {
           showMessage('No mod IDs found in the file.', 'error');
         } else {
-          output.value = Array.from(ids).join(';');
+          output.value = Array.from(ids).join(';') + ';';
           showMessage(`Parsed ${ids.size} mod(s) successfully.`, 'success');
         }
       };
